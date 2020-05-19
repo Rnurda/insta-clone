@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:icon="@drawable/ic_home_selector"
+    <item
+        android:id="@+id/nav_item_home"
+        android:icon="@drawable/ic_home_selector"
         android:title=""/>
-    <item android:icon="@drawable/ic_search_selector"
+    <item
+        android:id="@+id/nav_item_search"
+        android:icon="@drawable/ic_search_selector"
         android:title=""/>
-    <item android:icon="@drawable/ic_share_selector"
+    <item
+        android:id="@+id/nav_item_share"
+        android:icon="@drawable/ic_share_selector"
         android:title=""/>
-    <item android:icon="@drawable/ic_likes_selector"
+    <item
+        android:id="@+id/nav_item_like"
+        android:icon="@drawable/ic_likes_selector"
         android:title=""/>
-    <item android:icon="@drawable/ic_profile_selector"
+    <item
+        android:id="@+id/nav_item_profile"
+        android:icon="@drawable/ic_profile_selector"
         android:title=""/>
 
 </menu>
