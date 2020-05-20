@@ -4,6 +4,138 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileActivity">
+    tools:context=".HomeActivity"
+    android:background="@color/whit">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/whiteish"
+        android:elevation="4dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:textSize="19sp"
+                android:textColor="@color/colorBlack"
+                android:text="nurdairis"
+                />
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="8dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:src="@drawable/ic_more"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_image"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/edit_profile_btn"
+        android:src="@drawable/photo"
+        app:layout_constraintHorizontal_weight="2"
+        app:civ_border_color="@color/gray"
+        app:civ_border_width="2dp">
+    </de.hdodenhof.circleimageview.CircleImageView>
+
+    <TextView
+        android:id="@+id/posts_count_text"
+        style="@style/profile_text_count"
+        android:text="15"
+        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toTopOf="@id/edit_profile_btn"
+        app:layout_constraintStart_toStartOf="@id/post_text"
+        app:layout_constraintEnd_toEndOf="@id/post_text"
+        tools:layout_editor_absoluteX="120dp"
+        tools:layout_editor_absoluteY="72dp" />
+
+    <TextView
+        android:id="@+id/post_text"
+        style="@style/profile_text"
+        android:text="posts"
+        app:layout_constraintStart_toStartOf="@id/edit_profile_btn"
+        app:layout_constraintEnd_toStartOf="@id/followers_text"
+        app:layout_constraintTop_toBottomOf="@id/posts_count_text" />
+
+    <TextView
+        android:id="@+id/followers_count_text"
+        style="@style/profile_text_count"
+        android:text="150"
+        app:layout_constraintBaseline_toBaselineOf="@id/posts_count_text"
+        app:layout_constraintStart_toStartOf="@id/followers_text"
+        app:layout_constraintEnd_toEndOf="@id/followers_text" />
+
+    <TextView
+        android:id="@+id/followers_text"
+        style="@style/profile_text"
+        android:text="followers"
+        app:layout_constraintStart_toEndOf="@id/post_text"
+        app:layout_constraintEnd_toStartOf="@id/following_text"
+        app:layout_constraintBaseline_toBaselineOf="@id/post_text" />
+
+    <TextView
+        android:id="@+id/following_count_text"
+        style="@style/profile_text_count"
+        android:text="120"
+        app:layout_constraintBaseline_toBaselineOf="@id/posts_count_text"
+        app:layout_constraintStart_toStartOf="@id/following_text"
+        app:layout_constraintEnd_toEndOf="@id/following_text" />
+
+    <TextView
+        android:id="@+id/following_text"
+        style="@style/profile_text"
+        android:text="following"
+        app:layout_constraintStart_toEndOf="@id/followers_text"
+        app:layout_constraintEnd_toEndOf="@id/edit_profile_btn"
+        app:layout_constraintBaseline_toBaselineOf="@id/followers_text" />
+
+    <Button
+        android:id="@+id/edit_profile_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:minHeight="0dp"
+        android:text="Edit Profile"
+        android:background="@drawable/btn_bg"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:layout_marginBottom="5dp"
+        android:textAllCaps="false"
+        android:layout_marginEnd="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/profile_image"
+        app:layout_constraintStart_toEndOf="@+id/profile_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="5" />
+
+    <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
+        android:id="@+id/bottom_navigation_view"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/whiteish"
+        android:elevation="4dp"
+        app:menu="@menu/bottom_navigation_menu"/>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
