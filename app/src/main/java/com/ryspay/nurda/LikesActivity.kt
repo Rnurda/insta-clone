@@ -7,7 +7,7 @@ class LikesActivity : BaseActivity(3) {
     private val TAG = "LikesActivity"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_profile)
+        setContentView(R.layout.activity_home)
         setUpBottomNavigation()
         Log.d(TAG, "onCreate: ")
     }

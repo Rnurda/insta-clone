@@ -7,7 +7,7 @@ class ShareActivity : BaseActivity(2) {
     private val TAG = "ShareActivity"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_profile)
+        setContentView(R.layout.activity_home)
         setUpBottomNavigation()
         Log.d(TAG, "onCreate: ")
     }
