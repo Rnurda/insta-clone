@@ -45,4 +45,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:19.3.1'
 
     implementation 'com.caverock:androidsvg:1.2.1'
+
+    implementation 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:2.1.0'
 }
