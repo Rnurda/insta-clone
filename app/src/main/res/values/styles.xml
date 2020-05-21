@@ -10,6 +10,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="text">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -19,6 +20,7 @@
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/gray</item>
     </style>
+
     <style name="profile_text_count" parent="text">
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
@@ -31,6 +33,7 @@
         <item name="android:background">@color/whiteish</item>
         <item name="android:elevation">4dp</item>
     </style>
+
     <style name="toolbar_img">
         <item name="android:layout_width">@dimen/toolbar_height</item>
         <item name="android:layout_height">@dimen/toolbar_height</item>
@@ -49,16 +52,19 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">@dimen/edit_profile_margin_start</item>
     </style>
+
     <style name="edit_profile_lables_desc"
         parent="edit_profile_lables">
         <item name="android:textSize">14sp</item>
     </style>
+
     <style name="edit_profile_lables_desc_main"
         parent="edit_profile_lables_desc">
         <item name="android:textStyle">bold</item>
         <item name="android:layout_marginTop">20dp</item>
         <item name="android:textColor">@color/whitishgrey</item>
     </style>
+
     <style name="edit_profile_lables_desc_edible"
         parent="edit_profile_lables_desc">
         <item name="android:layout_marginTop">5dp</item>
@@ -74,14 +80,32 @@
         <item name="android:layout_marginEnd">@dimen/edit_profile_margin_start</item>
         <item name="android:layout_marginStart">@dimen/edit_profile_margin_start</item>
     </style>
+    
     <style name="edit_prof_text_input_edit_text">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+    
     <style name="edit_prof_view">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0.3dp</item>
         <item name="android:background">@color/whitishgrey</item>
     </style>
-    
+
+    <style name="login_input">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textSize">19sp</item>
+        <item name="background">@drawable/login_input_bg</item>
+    </style>
+    <style name="login_btn"
+        parent="login_input">
+        <item name="android:textColor">@color/whit</item>
+        <item name="android:background">@drawable/login_btn_bg</item>
+        <item name="textAllCaps">false</item>
+    </style>
 </resources>
