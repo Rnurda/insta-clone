@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "336362056799",
+    "firebase_url": "https://instaclone-a0119.firebaseio.com",
+    "project_id": "instaclone-a0119",
+    "storage_bucket": "instaclone-a0119.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:336362056799:android:2052c88f58dbaf1fba7fea",
+        "android_client_info": {
+          "package_name": "com.ryspay.nurda"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "336362056799-1gu9759u0joo7qu6p0v53qrhl51ol59u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ryspay.nurda",
+            "certificate_hash": "270dda82bfbe04a055c9447e50316b504ea68300"
+          }
+        },
+        {
+          "client_id": "336362056799-5qmelqeso59eeplva7va4s2up06n740o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMTbspxEkrVKsV1M7jCQjAlGZqYEwROwk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "336362056799-5qmelqeso59eeplva7va4s2up06n740o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
