@@ -1,8 +1,9 @@
-package com.ryspay.nurda
+package com.ryspay.nurda.activities
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import com.ryspay.nurda.R
 import kotlinx.android.synthetic.main.activity_profile.*
 
 class ProfileActivity : BaseActivity(4) {

@@ -1,6 +1,5 @@
-package com.ryspay.nurda
+package com.ryspay.nurda.activities
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +9,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.ryspay.nurda.R
 import com.ryspay.nurda.models.User
 import kotlinx.android.synthetic.main.activity_edit_profile.*
 
@@ -26,11 +26,11 @@ class EditProfileActivity : AppCompatActivity() {
         }
 
         val mAuth = FirebaseAuth.getInstance()
-        val user = mAuth.currentUser
+
         val mDatabase = FirebaseDatabase.getInstance().reference
-        mDatabase.child("users").child(user!!.uid).addListenerForSingleValueEvent(object: ValueEventListener{
-            override fun onDataChange(data: DataSnapshot) {
-                val user = data.getValue(User::class.java)
+        mDatabase.child("users").child(mAuth.currentUser!!.uid)
+            .addListenerForSingleValueEvent(ValueEventListenerAdapter {
+                val user = it.getValue(User::class.java)
                 name_input.setText(user!!.name, TextView.BufferType.EDITABLE)
                 username_input.setText(user.username, TextView.BufferType.EDITABLE)
                 web_input.setText(user.website, TextView.BufferType.EDITABLE)
@@ -38,14 +38,9 @@ class EditProfileActivity : AppCompatActivity() {
                 email_input.setText(user.email, TextView.BufferType.EDITABLE)
                 number_input.setText(user.phone, TextView.BufferType.EDITABLE)
                 gender_input.setText(user.gender, TextView.BufferType.EDITABLE)
-            }
-            override fun onCancelled(error: DatabaseError) {
-                Log.e(TAG, "onDataChange: ",error.toException())
-            }
-        })
 
-
-
+            })
     }
 }
+
 

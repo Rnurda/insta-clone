@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter full name and password"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="100dp"/>
+
+    <EditText
+        android:id="@+id/full_name_input"
+        style="@style/login_input"
+        android:hint="Full name"
+        android:inputType="textPersonName"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <EditText
+        android:id="@+id/password_input"
+        style="@style/login_input"
+        android:hint="Password"
+        android:inputType="textPassword"
+        app:layout_constraintTop_toBottomOf="@id/full_name_input" />
+
+    <Button
+        android:id="@+id/register_btn"
+        style="@style/login_btn"
+        android:text="Register"
+        app:layout_constraintTop_toBottomOf="@id/password_input" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,8 @@
-package com.ryspay.nurda
+package com.ryspay.nurda.activities
 
 import android.os.Bundle
 import android.util.Log
+import com.ryspay.nurda.R
 
 class SearchActivity : BaseActivity(1) {
     private val TAG = "SearchActivity"
