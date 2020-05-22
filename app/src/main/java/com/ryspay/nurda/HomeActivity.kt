@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : BaseActivity(0) {
     private val TAG = "HomeActivity"
@@ -16,7 +17,6 @@ class HomeActivity : BaseActivity(0) {
         Log.d(TAG, "onCreate: ")
 
         mAuth = FirebaseAuth.getInstance()
-        mAuth.signOut()
         /*auth.signInWithEmailAndPassword("admin@gmail.com","password")
             .addOnCompleteListener {
                 if(it.isSuccessful){
@@ -25,7 +25,15 @@ class HomeActivity : BaseActivity(0) {
                     Log.d(TAG, "Signin failure", it.exception)
                 }
             }*/
-
+        sign_out_text.setOnClickListener {
+            mAuth.signOut()
+        }
+        mAuth.addAuthStateListener {
+            if(it.currentUser == null){
+                startActivity(Intent(this, LoginActivity::class.java))
+                finish()
+            }
+        }
     }
 
     override fun onStart() {
