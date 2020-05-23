@@ -116,7 +116,7 @@ class RegisterActivity : AppCompatActivity(), EmailFragment.Listener, NamePassFr
         private lateinit var mListener:Listener
         interface Listener{
             fun onNext(email:String)
-        }
+        }/**/
 
         override fun onCreateView(
             inflater: LayoutInflater,
