@@ -9,18 +9,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.google.android.gms.dynamic.SupportFragmentWrapper
 import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.ryspay.nurda.R
 import com.ryspay.nurda.models.User
 import kotlinx.android.synthetic.main.fragment_register_email.*
+import kotlinx.android.synthetic.main.fragment_register_email.email_input
 import kotlinx.android.synthetic.main.fragment_register_namepass.*
+import kotlinx.android.synthetic.main.fragment_register_namepass.password_input
 
-class RegisterActivity : AppCompatActivity(), EmailFragment.Listener, NamePassFragment.Listener {
+class RegisterActivity : AppCompatActivity(), EmailFragment.Listener, NamePassFragment.Listener{
     private val TAG = "RegisterActivity"
 
     private var mEmail: String? = null
@@ -44,10 +44,20 @@ class RegisterActivity : AppCompatActivity(), EmailFragment.Listener, NamePassFr
             if(email.isNotEmpty()){
                 //go next
                 mEmail = email
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.frame_layout, NamePassFragment())
-                    .addToBackStack(null)
-                    .commit()
+                mAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        if (it.result?.signInMethods?.isEmpty() != false) {
+                            supportFragmentManager.beginTransaction()
+                                .replace(R.id.frame_layout, NamePassFragment())
+                                .addToBackStack(null)
+                                .commit()
+                        }else{
+                            showToast("This email address already uses")
+                        }
+                    }else{
+                        showToast(it.exception!!.message!!)
+                    }
+                }
             }else{
                 showToast("Please enter email")
             }
@@ -99,6 +109,7 @@ class RegisterActivity : AppCompatActivity(), EmailFragment.Listener, NamePassFr
     }
     private fun makeUsername(fullName: String) =
         fullName.toLowerCase().replace(" ",".")
+
 }
     // 1 - Email, next btn
     class EmailFragment: Fragment(){
@@ -116,6 +127,7 @@ class RegisterActivity : AppCompatActivity(), EmailFragment.Listener, NamePassFr
         }
 
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+            coordinateBtnAndInputs(next_btn,email_input)
             next_btn.setOnClickListener{
                 val email = email_input.text.toString()
                 mListener.onNext(email)
@@ -144,6 +156,7 @@ class RegisterActivity : AppCompatActivity(), EmailFragment.Listener, NamePassFr
             return inflater.inflate(R.layout.fragment_register_namepass, container, false)
         }
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+            coordinateBtnAndInputs(register_btn,full_name_input,password_input)
             register_btn.setOnClickListener {
                 val name = full_name_input.text.toString()
                 val password = password_input.text.toString()

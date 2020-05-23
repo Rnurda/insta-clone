@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    android:id="@+id/scrollView"
+<com.ryspay.nurda.views.KeyboardAwareScrollView android:id="@+id/scrollView"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:svgimageview="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:scrollbars="none">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         tools:context=".activities.LoginActivity"
@@ -56,4 +52,4 @@
             android:gravity="center"
             android:background="@drawable/top_border_grey" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</com.ryspay.nurda.views.KeyboardAwareScrollView>

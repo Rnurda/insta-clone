@@ -3,18 +3,15 @@ package com.ryspay.nurda.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.ryspay.nurda.R
 import kotlinx.android.synthetic.main.activity_login.*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 
-class LoginActivity : AppCompatActivity(), KeyboardVisibilityEventListener, TextWatcher,
+class LoginActivity : AppCompatActivity(), KeyboardVisibilityEventListener,
     View.OnClickListener {
     private val TAG = "LoginActivity"
     private lateinit var mAuth: FirebaseAuth
@@ -25,9 +22,7 @@ class LoginActivity : AppCompatActivity(), KeyboardVisibilityEventListener, Text
         Log.d(TAG, "onCreate: ")
 
         KeyboardVisibilityEvent.setEventListener(this,this)
-        login_btn.isEnabled = false
-        email_input.addTextChangedListener(this)
-        password_input.addTextChangedListener(this)
+        coordinateBtnAndInputs(login_btn,email_input,password_input)
         login_btn.setOnClickListener(this)
         create_account_text.setOnClickListener(this)
 
@@ -55,21 +50,13 @@ class LoginActivity : AppCompatActivity(), KeyboardVisibilityEventListener, Text
             }
         }
     }
-    override fun afterTextChanged(p0: Editable?) {
-       login_btn.isEnabled = validate(email_input.text.toString(), password_input.text.toString())
-    }
 
     private fun validate(email: String, password: String) = email.isNotEmpty() && password.isNotEmpty()
     override fun onVisibilityChanged(isKeyboardOpen: Boolean) {
         if(isKeyboardOpen){
             create_account_text.visibility = View.GONE
-            scrollView.scrollTo(0, scrollView.bottom)
-
         }else{
-            scrollView.scrollTo(0, scrollView.top)
             create_account_text.visibility = View.VISIBLE
         }
     }
-    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 }
