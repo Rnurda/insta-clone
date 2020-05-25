@@ -6,14 +6,17 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
+import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.ryspay.nurda.R
 import com.ryspay.nurda.models.User
 import kotlinx.android.synthetic.main.activity_edit_profile.*
 import kotlin.math.log
+import com.google.android.gms.tasks.OnSuccessListener as OnSuccessListener1
 
 class EditProfileActivity : AppCompatActivity(), View.OnClickListener, PasswordDialog.Listener {
     private val TAG = "EditProfileActivity"
@@ -73,51 +76,40 @@ class EditProfileActivity : AppCompatActivity(), View.OnClickListener, PasswordD
         }
     }
 
-    private fun updateUser(user: User){
-        val updateMap = mutableMapOf<String, Any>()
-
-        if(user.bio != mUser.bio) updateMap["bio"] = user.bio
-        if(user.email != mUser.email) updateMap["email"] = user.email
-        if(user.gender != mUser.gender) updateMap["gender"] = user.gender
-        if(user.name != mUser.name) updateMap["name"] = user.name
-        if(user.phone != mUser.phone) updateMap["phone"] = user.phone
-        if(user.username != mUser.username) updateMap["username"] = user.username
-        if(user.website != mUser.website) updateMap["website"] = user.website
-
-        mDatabase.child("users").child(mAuth.currentUser!!.uid).updateChildren(updateMap).addOnCompleteListener {
-            if(it.isSuccessful){
-                showToast("Profile saved")
-                finish()
-            }else{
-                showToast(it.exception!!.message!!)
-            }
-        }
-    }
-
     override fun onPasswordConfirm(password: String) {
-        // re-auth
-        val credential = EmailAuthProvider.getCredential(mUser.email, password)
-        mAuth.currentUser!!.reauthenticate(credential).addOnCompleteListener {
-            if(it.isSuccessful){
-                Log.d(TAG, "onPasswordConfirm: success faze 1")
+        if(password.isNotEmpty()) {
+            // re-auth
+            val credential = EmailAuthProvider.getCredential(mUser.email, password)
+            mAuth.currentUser!!.reauthenticate(credential){
                 // update email in auth
-                mAuth.currentUser!!.updateEmail(mPendingUser.email).addOnCompleteListener {
-                    if(it.isSuccessful){
-                        // update user
-                        updateUser(mPendingUser)
-                        Log.d(TAG, "onPasswordConfirm: success faze 2")
-                    }else{
-                        Log.d(TAG, "onPasswordConfirm: failure faze 1")
-                        Log.d(TAG, "onPasswordConfirm: "+ it.exception!!.message)
-                        showToast(it.exception!!.message!!)
-                    }
+                mAuth.currentUser!!.updateEmail(mPendingUser.email){
+                    // update user
+                    updateUser(mPendingUser)
                 }
-            }else{
-                showToast(it.exception!!.message!!)
-                Log.d(TAG, "onPasswordConfirm: failure faze 2")
             }
+        }else{
+            showToast("You should enter wrong password")
         }
     }
+
+   private fun updateUser(user: User){
+       val updateMap = mutableMapOf<String, Any>()
+
+       if(user.bio != mUser.bio) updateMap["bio"] = user.bio
+       if(user.email != mUser.email) updateMap["email"] = user.email 
+       if(user.gender != mUser.gender) updateMap["gender"] = user.gender
+       if(user.name != mUser.name) updateMap["name"] = user.name
+       if(user.phone != mUser.phone) updateMap["phone"] = user.phone
+       if(user.username != mUser.username) updateMap["username"] = user.username
+       if(user.website != mUser.website) updateMap["website"] = user.website
+       showToast("Profile saved")
+       finish()
+
+       mDatabase.updateUser(mAuth.currentUser!!.uid,updateMap){
+               showToast("Profile saved")
+               finish()
+       }
+   }
 
     private fun validate(user: User): String?  = when {
             user.name.isEmpty() -> "Please enter your namae"
@@ -137,6 +129,41 @@ class EditProfileActivity : AppCompatActivity(), View.OnClickListener, PasswordD
             }
         }
     }
+
+    private fun FirebaseUser.updateEmail(email: String, onSuccessListener: () ->  Unit){
+        updateEmail(email).addOnCompleteListener {
+            if (it.isSuccessful) {
+                onSuccessListener()
+            } else {
+                //showToast(it.exception!!.message!!)
+                showToast("You enter wrong password")
+                Log.d(TAG, "onPasswordConfirm: failure faze 2")
+            }
+        }
+    }
+
+    private fun DatabaseReference.updateUser(uid:String, updatesMap: Map<String,Any>, onSuccessListener: () -> Unit){
+        child("users").child(mAuth.currentUser!!.uid).updateChildren(updatesMap).addOnCompleteListener {
+            if(it.isSuccessful){
+                onSuccessListener()
+            }else{
+                showToast(it.exception!!.message!!)
+            }
+        }
+    }
+
+    private fun FirebaseUser.reauthenticate(credential: AuthCredential, onSuccessListener: () ->  Unit) {
+        reauthenticate(credential).addOnCompleteListener {
+            if (it.isSuccessful) {
+                onSuccessListener()
+            } else {
+                //showToast(it.exception!!.message!!)
+                showToast("You entered wrong password")
+                Log.d(TAG, "onPasswordConfirm: failure faze 2")
+            }
+        }
+    }
+
 }
 
 
