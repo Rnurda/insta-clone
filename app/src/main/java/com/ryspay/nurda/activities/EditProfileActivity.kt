@@ -7,11 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.TextView
 import com.google.firebase.auth.EmailAuthProvider
 import com.ryspay.nurda.R
 import com.ryspay.nurda.models.User
-import com.ryspay.nurda.utils.CameraPictureTaker
+import com.ryspay.nurda.utils.CameraHelper
 import com.ryspay.nurda.utils.FirebaseHelper
 import com.ryspay.nurda.utils.ValueEventListenerAdapter
 import kotlinx.android.synthetic.main.activity_edit_profile.*
@@ -22,14 +21,14 @@ class EditProfileActivity : AppCompatActivity(), View.OnClickListener, PasswordD
     private lateinit var mFirebaseHelper: FirebaseHelper
     private lateinit var mUser: User
     private lateinit var mPendingUser: User
-    private lateinit var cameraPictureTaker: CameraPictureTaker
+    private lateinit var cameraPictureTaker: CameraHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
         Log.d(TAG, "onCreate: ");
 
-        cameraPictureTaker = CameraPictureTaker(this)
+        cameraPictureTaker = CameraHelper(this)
         mFirebaseHelper = FirebaseHelper(this)
 
         close_image.setOnClickListener (this)
@@ -68,7 +67,7 @@ class EditProfileActivity : AppCompatActivity(), View.OnClickListener, PasswordD
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == cameraPictureTaker.REQUEST_CODE && resultCode == Activity.RESULT_OK){
             // upload image to FirebaseStorage
-            mFirebaseHelper.upleadUserPhoto(cameraPictureTaker.imageUri!!){
+            mFirebaseHelper.uploadUserPhoto(cameraPictureTaker.imageUri!!){
                 val downloadTask = it.metadata!!.reference!!.downloadUrl
                 downloadTask.addOnSuccessListener {uri ->
                     val photoUrl = uri.toString()

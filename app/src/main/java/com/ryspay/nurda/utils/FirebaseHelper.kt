@@ -12,15 +12,13 @@ import com.google.firebase.storage.UploadTask
 import com.ryspay.nurda.activities.showToast
 
 class FirebaseHelper(private val activity: Activity){
-    private val mAuth: FirebaseAuth =
-        FirebaseAuth.getInstance()
-    private val mDatabase: DatabaseReference = FirebaseDatabase.getInstance().reference
-    private val mStorage: StorageReference = FirebaseStorage.getInstance().reference
+    val auth: FirebaseAuth = FirebaseAuth.getInstance()
+    val database: DatabaseReference = FirebaseDatabase.getInstance().reference
+    val storage: StorageReference = FirebaseStorage.getInstance().reference
+    val uid = auth.currentUser!!.uid
 
-    private val uid = mAuth.currentUser!!.uid
-
-    fun upleadUserPhoto(photo: Uri, onSuccessListener: (UploadTask.TaskSnapshot) -> Unit) {
-        mStorage.child("users/$uid/photo").putFile(photo).addOnCompleteListener {
+    fun uploadUserPhoto(photo: Uri, onSuccessListener: (UploadTask.TaskSnapshot) -> Unit) {
+        storage.child("users/$uid/photo").putFile(photo).addOnCompleteListener {
             if (it.isSuccessful) {
                 onSuccessListener(it.result!!)
             } else {
@@ -30,7 +28,7 @@ class FirebaseHelper(private val activity: Activity){
     }
 
     fun updateUserPhoto(photoUrl: String, onSuccessListener: () -> Unit){
-        mDatabase.child("users/$uid/photo").setValue(photoUrl)
+        database.child("users/$uid/photo").setValue(photoUrl)
             .addOnCompleteListener {task ->
                 if(task.isSuccessful){
                     onSuccessListener()
@@ -41,7 +39,7 @@ class FirebaseHelper(private val activity: Activity){
     }
 
     fun updateEmail(email: String, onSuccessListener: () ->  Unit){
-        mAuth.currentUser!!.updateEmail(email).addOnCompleteListener {
+        auth.currentUser!!.updateEmail(email).addOnCompleteListener {
             if (it.isSuccessful) {
                 onSuccessListener()
             } else {
@@ -53,7 +51,7 @@ class FirebaseHelper(private val activity: Activity){
     }
 
     fun updateUser(updatesMap: Map<String,Any?>, onSuccessListener: () -> Unit){
-        mDatabase.child("users").child(uid).updateChildren(updatesMap).addOnCompleteListener {
+        database.child("users").child(uid).updateChildren(updatesMap).addOnCompleteListener {
             if(it.isSuccessful){
                 onSuccessListener()
             }else{
@@ -63,7 +61,7 @@ class FirebaseHelper(private val activity: Activity){
     }
 
     fun reauthenticate(credential: AuthCredential, onSuccessListener: () ->  Unit) {
-        mAuth.currentUser!!.reauthenticate(credential).addOnCompleteListener {
+        auth.currentUser!!.reauthenticate(credential).addOnCompleteListener {
             if (it.isSuccessful) {
                 onSuccessListener()
             } else {
@@ -74,5 +72,5 @@ class FirebaseHelper(private val activity: Activity){
         }
     }
 
-    fun currentUserReference(): DatabaseReference =  mDatabase.child("users").child(uid)
+    fun currentUserReference(): DatabaseReference =  database.child("users").child(uid)
 }
