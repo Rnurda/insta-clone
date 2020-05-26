@@ -26,12 +26,13 @@ class HomeActivity : BaseActivity(0) {
         setContentView(R.layout.activity_home)
         setUpBottomNavigation()
         Log.d(TAG, "onCreate: ")
-
         mFirebase = FirebaseHelper(this)
         mFirebase.auth.addAuthStateListener {
             if(it.currentUser == null){
                 startActivity(Intent(this, LoginActivity::class.java))
                 finish()
+            }else{
+
             }
         }
     }
@@ -46,8 +47,8 @@ class HomeActivity : BaseActivity(0) {
             mFirebase.database.child("feed-posts").child(currentUser.uid)
                 .addValueEventListener(ValueEventListenerAdapter{
                     val posts = it.children.map { it.getValue(FeedPost::class.java)!! }
-                    Log.d(TAG, "feedPosts: ${posts.joinToString("\n", "\n")} ")
-                    Log.d(TAG, "feedPosts: ${posts.first().timeStampsDate()} ")
+                    /*Log.d(TAG, "feedPosts: ${posts.joinToString("\n", "\n")} ")
+                    Log.d(TAG, "feedPosts: ${posts.first().timeStampsDate()} ")*/
 
                     feed_recycler.adapter = FeedAdapter(posts)
                     feed_recycler.layoutManager = LinearLayoutManager(this)

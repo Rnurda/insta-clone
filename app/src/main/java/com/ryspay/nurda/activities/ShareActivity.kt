@@ -51,7 +51,7 @@ class ShareActivity : BaseActivity(2) {
 
     private fun share() {
         val imageUri = mCamera.imageUri
-        val uid = mFirebase.uid
+        val uid = mFirebase.auth.currentUser!!.uid
         if(imageUri!=null) {
             // upload image to user folder <- Storage
             mFirebase.storage.child("users").child(uid).child("images")
