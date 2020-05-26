@@ -4,49 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.ProfileActivity"
-    android:background="@color/whit">
-
+    tools:context=".activities.AddFriendsActivity">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         style="@style/toolbar"
-        tools:ignore="MissingConstraints"
-        app:contentInsetStart="0dp">
+        app:contentInsetStart="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <ImageView
-                android:id="@+id/story_image"
+                android:id="@+id/back_image"
                 style="@style/icon"
-                android:src="@drawable/ic_insta_photo"
+                android:src="@drawable/ic_back"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-            <ImageView
-                android:id="@+id/instagram_img"
-                android:layout_width="130dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp"
-                android:src="@drawable/ic_insta_text"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/story_image"/>
-            <ImageView
-                style="@style/icon"
-                app:layout_constraintRight_toRightOf="parent"
+                />
+
+            <TextView
+                style="@style/toolbar_title"
+                android:text="DiscoverPeople"
+                app:layout_constraintStart_toEndOf="@id/back_image"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:src="@drawable/ic_share"/>
+                app:layout_constraintBottom_toBottomOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
-
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/feed_recycler"
+        android:id="@+id/add_friends_recycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigation_view" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 
-    <include layout="@layout/bottom_navigation_view"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

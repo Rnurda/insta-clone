@@ -1,6 +1,5 @@
 package com.ryspay.nurda.activities
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -31,6 +30,18 @@ class ProfileActivity : BaseActivity(4) {
 
         edit_profile_btn.setOnClickListener {
             val intent = Intent(this, EditProfileActivity::class.java);
+            intent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+            startActivity(intent)
+            overridePendingTransition(0,0)
+        }
+        settings_image.setOnClickListener {
+            val intent = Intent(this, ProfileSettingsActivity::class.java);
+            intent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+            startActivity(intent)
+            overridePendingTransition(0,0)
+        }
+        add_friends_image.setOnClickListener {
+            val intent = Intent(this, AddFriendsActivity::class.java);
             intent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
             startActivity(intent)
             overridePendingTransition(0,0)
