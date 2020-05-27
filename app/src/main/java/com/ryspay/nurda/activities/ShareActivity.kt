@@ -3,17 +3,15 @@ package com.ryspay.nurda.activities
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.util.Log
-import com.google.firebase.database.ServerValue
 import com.ryspay.nurda.R
+import com.ryspay.nurda.models.FeedPost
 import com.ryspay.nurda.models.User
 import com.ryspay.nurda.utils.CameraHelper
 import com.ryspay.nurda.utils.FirebaseHelper
 import com.ryspay.nurda.utils.GlideApp
 import com.ryspay.nurda.utils.ValueEventListenerAdapter
 import kotlinx.android.synthetic.main.activity_share.*
-import java.util.*
 
 class ShareActivity : BaseActivity(2) {
     private val TAG = "ShareActivity"
@@ -31,7 +29,7 @@ class ShareActivity : BaseActivity(2) {
         mCamera.takeCameraPicture()
 
         mFirebase.currentUserReference().addValueEventListener(ValueEventListenerAdapter{
-            mUser = it.getValue(User::class.java)!!
+            mUser = it.asUser()!!
         })
 
         back_image.setOnClickListener{finish()}
@@ -51,7 +49,7 @@ class ShareActivity : BaseActivity(2) {
 
     private fun share() {
         val imageUri = mCamera.imageUri
-        val uid = mFirebase.auth.currentUser!!.uid
+        val uid = mFirebase.currentUid()!!
         if(imageUri!=null) {
             // upload image to user folder <- Storage
             mFirebase.storage.child("users").child(uid).child("images")
@@ -99,13 +97,4 @@ class ShareActivity : BaseActivity(2) {
         )
     }
 }
-
-data class FeedPost(val uid: String = "", val username: String = "", val image: String = "",
-                    val likesCount: Int = 0, val commentsCount: Int = 0, val caption: String = "",
-                    val comments: List<Comment> = emptyList(), val timeStamp: Any = ServerValue.TIMESTAMP,
-                    val photo: String? =null ){
-    fun timeStampsDate(): Date = Date(timeStamp as Long)
-}
-
-data class Comment(val uid:String, val username: String, val text: String)
 
