@@ -122,7 +122,7 @@ class EditProfileActivity : AppCompatActivity(), View.OnClickListener, PasswordD
                 }
             }
         }else{
-            showToast("You should enter wrong password")
+            showToast(getString(R.string.you_enter_wrong_password))
         }
     }
 
@@ -136,19 +136,19 @@ class EditProfileActivity : AppCompatActivity(), View.OnClickListener, PasswordD
        if(user.phone != mUser.phone) updateMap["phone"] = user.phone
        if(user.username != mUser.username) updateMap["username"] = user.username
        if(user.website != mUser.website) updateMap["website"] = user.website
-       showToast("Profile saved")
+       showToast(getString(R.string.profile_saved))
        finish()
 
        mFirebaseHelper.updateUser(updateMap){
-               showToast("Profile saved")
+               showToast(getString(R.string.profile_saved))
                finish()
        }
    }
 
     private fun validate(user: User): String?  = when {
-            user.name.isEmpty() -> "Please enter your namae"
-            user.username.isEmpty() -> "Please enter your username"
-            user.email.isEmpty() -> "Please enter your email"
+            user.name.isEmpty() -> getString(R.string.please_enter_your_name)
+            user.username.isEmpty() -> getString(R.string.please_enter_your_username)
+            user.email.isEmpty() -> getString(R.string.please_enter_your_email)
             else -> null
     }
 }

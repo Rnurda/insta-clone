@@ -26,14 +26,14 @@
         <EditText
             android:id="@+id/email_input"
             style="@style/big_input"
-            android:hint="Email"
+            android:hint="@string/email"
             android:layout_marginTop="20dp"
             android:inputType="textEmailAddress"
             app:layout_constraintTop_toBottomOf="@id/instagram_img" />
         <EditText
             android:id="@+id/password_input"
             style="@style/big_input"
-            android:hint="Password"
+            android:hint="@string/password"
             android:inputType="textPassword"
             app:layout_constraintTop_toBottomOf="@id/email_input" />
 
@@ -41,7 +41,7 @@
             android:id="@+id/login_btn"
             style="@style/big_btn"
             app:layout_constraintTop_toBottomOf="@id/password_input"
-            android:text="Log In" />
+            android:text="@string/log_in" />
 
         <TextView
             android:id="@+id/create_account_text"

@@ -135,7 +135,8 @@ class FeedAdapter(private val listener: Listener, private val posts: List<FeedPo
                 likes_text.visibility = View.GONE
             }else{
                 likes_text.visibility = View.VISIBLE
-                likes_text.text = "${likes.likesCount} likes"
+                val likes_with_quantity_string = holder.view.context.resources.getQuantityString(R.plurals.likes_count, likes.likesCount)
+                likes_text.text = "${likes.likesCount} $likes_with_quantity_string"
             }
             caption_text.setCaptionText(post.username, post.caption)
             like_image.setOnClickListener { listener.toggleLike(post.id)}
@@ -150,7 +151,7 @@ class FeedAdapter(private val listener: Listener, private val posts: List<FeedPo
             0, usernameSpanable.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         usernameSpanable.setSpan(object : ClickableSpan() {
             override fun onClick(view: View) {
-                view.context.showToast("Username is clicked")
+                view.context.showToast(context.getString(R.string.username_is_clicked))
             }
 
             override fun updateDrawState(ds: TextPaint) {}

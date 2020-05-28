@@ -45,7 +45,7 @@ class LoginActivity : AppCompatActivity(), KeyboardVisibilityEventListener,
                         }
                     }
                 }else{
-                    showToast("Please enter email and password")
+                    showToast(getString(R.string.please_enter_your_email_and_password))
                 }
             }
         }

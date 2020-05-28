@@ -116,8 +116,8 @@ class FriendsAdapter(private val listener: Listener) : RecyclerView.Adapter<Frie
             view.photo_image.loadUserPhoto(user.photo)
             view.username_text.text = user.username
             view.name_text.text = user.name
-            view.follow_btn.setOnClickListener{listener.follow(user.uid!!)}
-            view.unfollow_btn.setOnClickListener{listener.unfollow(user.uid!!)}
+            view.follow_btn.setOnClickListener{listener.follow(user.uid)}
+            view.unfollow_btn.setOnClickListener{listener.unfollow(user.uid)}
 
             val follows = mFollows[user.uid] ?: false
             if(follows){
@@ -132,7 +132,7 @@ class FriendsAdapter(private val listener: Listener) : RecyclerView.Adapter<Frie
 
     fun update(users: List<User>, follows: Map<String, Boolean>){
         mUsers = users
-        mPosition = users.withIndex().map { (idx, user) ->user.uid!! to idx }.toMap()
+        mPosition = users.withIndex().map { (idx, user) ->user.uid to idx }.toMap()
         mFollows = follows
         notifyDataSetChanged()
     }
@@ -140,12 +140,12 @@ class FriendsAdapter(private val listener: Listener) : RecyclerView.Adapter<Frie
     override fun getItemCount(): Int  = mUsers.size
 
     fun followed(uid: String) {
-        mFollows += (uid to true)
+        mFollows = mFollows + (uid to true)
         notifyItemChanged(mPosition[uid]!!)
     }
 
     fun unfollowed(uid: String) {
-        mFollows -= uid
+        mFollows = mFollows - uid
         notifyItemChanged(mPosition[uid]!!)
     }
 }

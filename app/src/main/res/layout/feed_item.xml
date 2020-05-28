@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/user_photo_image"
         style="@style/icon"
@@ -13,7 +14,7 @@
         android:id="@+id/username_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="test.profile"
+        tools:text="test.profile"
         android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@id/user_photo_image"
         app:layout_constraintTop_toTopOf="@id/user_photo_image"
@@ -64,7 +65,7 @@
         android:id="@+id/likes_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="170,667 likes"
+        tools:text="170,667 likes"
         android:textStyle="bold"
         android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@id/like_image"
@@ -76,7 +77,7 @@
         android:id="@+id/caption_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="test.profile This is a caption for the post, actually long caption"
+        tools:text="test.profile This is a caption for the post, actually long caption"
         android:textColor="@color/black"
         android:layout_marginStart="10dp"
         app:layout_constraintBottom_toBottomOf="parent"

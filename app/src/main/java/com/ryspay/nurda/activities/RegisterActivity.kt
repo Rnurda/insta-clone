@@ -52,7 +52,7 @@ class RegisterActivity : AppCompatActivity(), EmailFragment.Listener, NamePassFr
                             .addToBackStack(null)
                             .commit()
                     }else{
-                        showToast("This email address already uses")
+                        showToast(getString(R.string.this_email_address_already_uses))
                     }
             }
         }else{
@@ -72,17 +72,17 @@ class RegisterActivity : AppCompatActivity(), EmailFragment.Listener, NamePassFr
                 }
             }else{
                 Log.e(TAG, "onRegister: email is null")
-                showToast("Please enter email")
+                showToast(getString(R.string.please_enter_your_email))
                 supportFragmentManager.popBackStack()
             }
         }else{
-            showToast("Please enter full name and password")
+            showToast(getString(R.string.please_enter_your_full_name_and_password))
         }
     }
 
     private fun unknownRegisterError(it: Task<*>) {  //"out Any" or "*" if don't metter type (Если не имеет значения)
         Log.e(TAG, "Failed to create user", it.exception)
-        showToast("Something wrong happend, Please try again later)")
+        showToast(getString(R.string.something_wrong_happened))
     }
 
     private fun startyHomeActivity() {
