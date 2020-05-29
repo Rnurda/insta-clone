@@ -11,9 +11,9 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ryspay.nurda.R
+import com.ryspay.nurda.activities.addfriends.AddFriendsActivity
 import com.ryspay.nurda.models.User
 import com.ryspay.nurda.utils.FirebaseHelper
-import com.ryspay.nurda.utils.GlideApp
 import com.ryspay.nurda.utils.ValueEventListenerAdapter
 import kotlinx.android.synthetic.main.activity_profile.*
 
