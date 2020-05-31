@@ -1,13 +1,21 @@
 package com.ryspay.nurda.activities
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.pm.ActivityInfo
+import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.ryspay.nurda.*
 import kotlinx.android.synthetic.main.bottom_navigation_view.*
 
 abstract class BaseActivity(val navNumber: Int): AppCompatActivity(){
-    private val TAG = "BaseActivity"
+
+    @SuppressLint("SourceLockedOrientationActivity")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+    }
 
     fun setUpBottomNavigation(){
         bottom_navigation_view.setTextVisibility(false)
@@ -49,6 +57,10 @@ abstract class BaseActivity(val navNumber: Int): AppCompatActivity(){
         if(bottom_navigation_view!=null) {
             bottom_navigation_view.menu.getItem(navNumber).isChecked = true
         }
+    }
+
+    companion object{
+        const val TAG = "BaseActivity"
     }
 
 }

@@ -1,4 +1,4 @@
-package com.ryspay.nurda.activities
+package com.ryspay.nurda.activities.editprofile
 
 import PasswordDialog
 import android.app.Activity
@@ -7,18 +7,21 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.EmailAuthProvider
 import com.ryspay.nurda.R
+import com.ryspay.nurda.activities.ViewModelFactory
+import com.ryspay.nurda.activities.loadUserPhoto
+import com.ryspay.nurda.activities.showToast
+import com.ryspay.nurda.activities.toStringOrNull
 import com.ryspay.nurda.models.User
 import com.ryspay.nurda.utils.CameraHelper
-import com.ryspay.nurda.utils.FirebaseHelper
-import com.ryspay.nurda.utils.ValueEventListenerAdapter
 import kotlinx.android.synthetic.main.activity_edit_profile.*
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class EditProfileActivity : AppCompatActivity(), View.OnClickListener, PasswordDialog.Listener {
-    private val TAG = "EditProfileActivity"
-    private lateinit var mFirebaseHelper: FirebaseHelper
+    private lateinit var mViewModel: EditProfielViewModel
     private lateinit var mUser: User
     private lateinit var mPendingUser: User
     private lateinit var cameraPictureTaker: CameraHelper
@@ -29,15 +32,11 @@ class EditProfileActivity : AppCompatActivity(), View.OnClickListener, PasswordD
         Log.d(TAG, "onCreate: ");
 
         cameraPictureTaker = CameraHelper(this)
-        mFirebaseHelper = FirebaseHelper(this)
 
-        close_image.setOnClickListener (this)
-        save_image.setOnClickListener(this)
-        chnage_photo_lable.setOnClickListener(this)
-
-        mFirebaseHelper.currentUserReference()
-            .addListenerForSingleValueEvent(ValueEventListenerAdapter {
-                mUser = it.asUser()!!
+        mViewModel = ViewModelProvider(this, ViewModelFactory()).get(EditProfielViewModel::class.java)
+        mViewModel.user.observe(this, Observer{
+            it.let{
+                mUser = it
                 name_input.setText(mUser.name)
                 username_input.setText(mUser.username)
                 web_input.setText(mUser.website)
@@ -46,7 +45,13 @@ class EditProfileActivity : AppCompatActivity(), View.OnClickListener, PasswordD
                 number_input.setText(mUser.phone)
                 gender_input.setText(mUser.gender)
                 profile_image.loadUserPhoto(mUser.photo)
-            })
+            }
+        })
+
+        close_image.setOnClickListener (this)
+        save_image.setOnClickListener(this)
+        chnage_photo_lable.setOnClickListener(this)
+
     }
     override fun onClick(view: View) {
         when(view.id){
@@ -66,16 +71,8 @@ class EditProfileActivity : AppCompatActivity(), View.OnClickListener, PasswordD
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == cameraPictureTaker.REQUEST_CODE && resultCode == Activity.RESULT_OK){
-            // upload image to FirebaseStorage
-            mFirebaseHelper.uploadUserPhoto(cameraPictureTaker.imageUri!!){
-                val downloadTask = it.metadata!!.reference!!.downloadUrl
-                downloadTask.addOnSuccessListener {uri ->
-                    val photoUrl = uri.toString()
-                    mFirebaseHelper.updateUserPhoto(photoUrl){
-                                mUser = mUser.copy(photo = photoUrl)
-                                profile_image.loadUserPhoto(mUser.photo)
-                    }
-                }
+            mViewModel.uploadAndSetUserPhoto(cameraPictureTaker.imageUri!!).addOnFailureListener{
+                showToast(it.message)
             }
         }
     }
@@ -114,35 +111,22 @@ class EditProfileActivity : AppCompatActivity(), View.OnClickListener, PasswordD
         if(password.isNotEmpty()) {
             // re-auth
             val credential = EmailAuthProvider.getCredential(mUser.email, password)
-            mFirebaseHelper.reauthenticate(credential){
-                // update email in auth
-                mFirebaseHelper.updateEmail(mPendingUser.email){
-                    // update user
-                    updateUser(mPendingUser)
-                }
-            }
+            mViewModel.updateEmail(currentEmail = mUser.email, newEmail = mPendingUser.email,password = password)
+                .addOnSuccessListener { updateUser(mPendingUser) }
+                .addOnFailureListener{showToast(it.message)}
         }else{
             showToast(getString(R.string.you_enter_wrong_password))
         }
     }
 
    private fun updateUser(user: User){
-       val updateMap = mutableMapOf<String, Any?>()
 
-       if(user.bio != mUser.bio) updateMap["bio"] = user.bio
-       if(user.email != mUser.email) updateMap["email"] = user.email
-       if(user.gender != mUser.gender) updateMap["gender"] = user.gender
-       if(user.name != mUser.name) updateMap["name"] = user.name
-       if(user.phone != mUser.phone) updateMap["phone"] = user.phone
-       if(user.username != mUser.username) updateMap["username"] = user.username
-       if(user.website != mUser.website) updateMap["website"] = user.website
-       showToast(getString(R.string.profile_saved))
-       finish()
-
-       mFirebaseHelper.updateUser(updateMap){
+       mViewModel.updateUserProfile(currentUser = mUser, newUser = user)
+           .addOnFailureListener{showToast(it.message)}
+           .addOnSuccessListener {
                showToast(getString(R.string.profile_saved))
                finish()
-       }
+           }
    }
 
     private fun validate(user: User): String?  = when {
@@ -151,4 +135,9 @@ class EditProfileActivity : AppCompatActivity(), View.OnClickListener, PasswordD
             user.email.isEmpty() -> getString(R.string.please_enter_your_email)
             else -> null
     }
+
+    companion object{
+        const val TAG = "EditProfileActivity"
+    }
+
 }

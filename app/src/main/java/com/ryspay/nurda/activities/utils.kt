@@ -20,8 +20,8 @@ import com.ryspay.nurda.models.FeedPost
 import com.ryspay.nurda.models.User
 import com.ryspay.nurda.utils.GlideApp
 
-fun Context.showToast(text: String, duration: Int = Toast.LENGTH_SHORT){
-    Toast.makeText(this, text, duration).show()
+fun Context.showToast(text: String?, duration: Int = Toast.LENGTH_SHORT){
+    text?.let{Toast.makeText(this, it, duration).show()}
 }
 
 fun coordinateBtnAndInputs(btn: Button, vararg inputs: EditText){
