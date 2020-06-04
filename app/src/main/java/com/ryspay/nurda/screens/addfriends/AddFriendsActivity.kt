@@ -1,4 +1,4 @@
-package com.ryspay.nurda.activities.addfriends
+package com.ryspay.nurda.screens.addfriends
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -6,8 +6,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ryspay.nurda.R
-import com.ryspay.nurda.activities.ViewModelFactory
-import com.ryspay.nurda.activities.showToast
+import com.ryspay.nurda.screens.ViewModelFactory
+import com.ryspay.nurda.screens.showToast
 import com.ryspay.nurda.models.User
 import kotlinx.android.synthetic.main.activity_add_friends.*
 

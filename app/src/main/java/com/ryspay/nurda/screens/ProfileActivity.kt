@@ -1,4 +1,4 @@
-package com.ryspay.nurda.activities
+package com.ryspay.nurda.screens
 
 import android.content.Context
 import android.content.Intent
@@ -11,8 +11,8 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ryspay.nurda.R
-import com.ryspay.nurda.activities.addfriends.AddFriendsActivity
-import com.ryspay.nurda.activities.editprofile.EditProfileActivity
+import com.ryspay.nurda.screens.addfriends.AddFriendsActivity
+import com.ryspay.nurda.screens.editprofile.EditProfileActivity
 import com.ryspay.nurda.models.User
 import com.ryspay.nurda.utils.FirebaseHelper
 import com.ryspay.nurda.utils.ValueEventListenerAdapter

@@ -1,4 +1,4 @@
-package com.ryspay.nurda.activities.editprofile
+package com.ryspay.nurda.screens.editprofile
 
 import PasswordDialog
 import android.app.Activity
@@ -11,10 +11,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.EmailAuthProvider
 import com.ryspay.nurda.R
-import com.ryspay.nurda.activities.ViewModelFactory
-import com.ryspay.nurda.activities.loadUserPhoto
-import com.ryspay.nurda.activities.showToast
-import com.ryspay.nurda.activities.toStringOrNull
+import com.ryspay.nurda.screens.ViewModelFactory
+import com.ryspay.nurda.screens.loadUserPhoto
+import com.ryspay.nurda.screens.showToast
+import com.ryspay.nurda.screens.toStringOrNull
 import com.ryspay.nurda.models.User
 import com.ryspay.nurda.utils.CameraHelper
 import kotlinx.android.synthetic.main.activity_edit_profile.*

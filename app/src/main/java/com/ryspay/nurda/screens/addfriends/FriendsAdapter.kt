@@ -1,11 +1,11 @@
-package com.ryspay.nurda.activities.addfriends
+package com.ryspay.nurda.screens.addfriends
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ryspay.nurda.R
-import com.ryspay.nurda.activities.loadUserPhoto
+import com.ryspay.nurda.screens.loadUserPhoto
 import com.ryspay.nurda.models.User
 import kotlinx.android.synthetic.main.add_fiends_item.view.*
 

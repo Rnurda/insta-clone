@@ -1,4 +1,4 @@
-package com.ryspay.nurda.activities
+package com.ryspay.nurda.screens
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
