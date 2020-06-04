@@ -11,9 +11,10 @@ import com.ryspay.nurda.utils.CameraHelper
 import com.ryspay.nurda.utils.FirebaseHelper
 import com.ryspay.nurda.utils.GlideApp
 import com.ryspay.nurda.utils.ValueEventListenerAdapter
+import com.ryspay.nurda.views.setUpBottomNavigation
 import kotlinx.android.synthetic.main.activity_share.*
 
-class ShareActivity : BaseActivity(2) {
+class ShareActivity : BaseActivity() {
     private val TAG = "ShareActivity"
     private lateinit var mCamera: CameraHelper
     private lateinit var mFirebase: FirebaseHelper

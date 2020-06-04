@@ -4,15 +4,16 @@ import android.os.Bundle
 import android.util.Log
 import com.ryspay.nurda.R
 import com.ryspay.nurda.utils.CameraHelper
+import com.ryspay.nurda.views.setUpBottomNavigation
 
-class SearchActivity : BaseActivity(1) {
+class SearchActivity : BaseActivity() {
     private val TAG = "SearchActivity"
     private lateinit var mCameraHelper: CameraHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        setUpBottomNavigation()
+        setUpBottomNavigation(1)
         Log.d(TAG, "onCreate: ")
     }
 

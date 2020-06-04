@@ -25,10 +25,11 @@ import com.ryspay.nurda.models.FeedPost
 import com.ryspay.nurda.utils.FirebaseHelper
 import com.ryspay.nurda.utils.GlideApp
 import com.ryspay.nurda.utils.ValueEventListenerAdapter
+import com.ryspay.nurda.views.setUpBottomNavigation
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.feed_item.view.*
 
-class HomeActivity : BaseActivity(0), FeedAdapter.Listener {
+class HomeActivity : BaseActivity(), FeedAdapter.Listener {
     private lateinit var mAdapter: FeedAdapter
     private val TAG = "HomeActivity"
     private lateinit var mFirebase: FirebaseHelper
@@ -37,7 +38,9 @@ class HomeActivity : BaseActivity(0), FeedAdapter.Listener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        setUpBottomNavigation()
+
+        setUpBottomNavigation(0)
+
         Log.d(TAG, "onCreate: ")
         mFirebase = FirebaseHelper(this)
         mFirebase.auth.addAuthStateListener {

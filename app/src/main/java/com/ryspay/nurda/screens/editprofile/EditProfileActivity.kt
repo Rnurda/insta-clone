@@ -11,11 +11,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.EmailAuthProvider
 import com.ryspay.nurda.R
-import com.ryspay.nurda.screens.ViewModelFactory
-import com.ryspay.nurda.screens.loadUserPhoto
-import com.ryspay.nurda.screens.showToast
-import com.ryspay.nurda.screens.toStringOrNull
 import com.ryspay.nurda.models.User
+import com.ryspay.nurda.screens.*
 import com.ryspay.nurda.utils.CameraHelper
 import kotlinx.android.synthetic.main.activity_edit_profile.*
 

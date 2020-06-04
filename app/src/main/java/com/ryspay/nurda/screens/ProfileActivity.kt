@@ -16,9 +16,10 @@ import com.ryspay.nurda.screens.editprofile.EditProfileActivity
 import com.ryspay.nurda.models.User
 import com.ryspay.nurda.utils.FirebaseHelper
 import com.ryspay.nurda.utils.ValueEventListenerAdapter
+import com.ryspay.nurda.views.setUpBottomNavigation
 import kotlinx.android.synthetic.main.activity_profile.*
 
-class ProfileActivity : BaseActivity(4) {
+class ProfileActivity : BaseActivity() {
     private val TAG = "ProfileActivity"
     private lateinit var mFirebaseHelper: FirebaseHelper
     private lateinit var mUser: User
@@ -26,7 +27,7 @@ class ProfileActivity : BaseActivity(4) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
-        setUpBottomNavigation()
+        setUpBottomNavigation(4)
         Log.d(TAG, "onCreate: ")
 
         edit_profile_btn.setOnClickListener {
