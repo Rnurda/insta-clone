@@ -17,7 +17,7 @@ import com.ryspay.nurda.utils.CameraHelper
 import kotlinx.android.synthetic.main.activity_edit_profile.*
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-class EditProfileActivity : AppCompatActivity(), View.OnClickListener, PasswordDialog.Listener {
+class EditProfileActivity : BaseActivity(), View.OnClickListener, PasswordDialog.Listener {
     private lateinit var mViewModel: EditProfielViewModel
     private lateinit var mUser: User
     private lateinit var mPendingUser: User
@@ -30,7 +30,7 @@ class EditProfileActivity : AppCompatActivity(), View.OnClickListener, PasswordD
 
         cameraPictureTaker = CameraHelper(this)
 
-        mViewModel = ViewModelProvider(this, ViewModelFactory()).get(EditProfielViewModel::class.java)
+        mViewModel = initViewModel()
         mViewModel.user.observe(this, Observer{
             it.let{
                 mUser = it
@@ -68,9 +68,7 @@ class EditProfileActivity : AppCompatActivity(), View.OnClickListener, PasswordD
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == cameraPictureTaker.REQUEST_CODE && resultCode == Activity.RESULT_OK){
-            mViewModel.uploadAndSetUserPhoto(cameraPictureTaker.imageUri!!).addOnFailureListener{
-                showToast(it.message)
-            }
+            mViewModel.uploadAndSetUserPhoto(cameraPictureTaker.imageUri!!)
         }
     }
 
@@ -110,7 +108,6 @@ class EditProfileActivity : AppCompatActivity(), View.OnClickListener, PasswordD
             val credential = EmailAuthProvider.getCredential(mUser.email, password)
             mViewModel.updateEmail(currentEmail = mUser.email, newEmail = mPendingUser.email,password = password)
                 .addOnSuccessListener { updateUser(mPendingUser) }
-                .addOnFailureListener{showToast(it.message)}
         }else{
             showToast(getString(R.string.you_enter_wrong_password))
         }
@@ -119,7 +116,6 @@ class EditProfileActivity : AppCompatActivity(), View.OnClickListener, PasswordD
    private fun updateUser(user: User){
 
        mViewModel.updateUserProfile(currentUser = mUser, newUser = user)
-           .addOnFailureListener{showToast(it.message)}
            .addOnSuccessListener {
                showToast(getString(R.string.profile_saved))
                finish()

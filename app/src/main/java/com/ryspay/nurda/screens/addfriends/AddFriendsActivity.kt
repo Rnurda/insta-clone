@@ -9,9 +9,10 @@ import com.ryspay.nurda.R
 import com.ryspay.nurda.screens.ViewModelFactory
 import com.ryspay.nurda.screens.showToast
 import com.ryspay.nurda.models.User
+import com.ryspay.nurda.screens.BaseActivity
 import kotlinx.android.synthetic.main.activity_add_friends.*
 
-class  AddFriendsActivity : AppCompatActivity(), FriendsAdapter.Listener {
+class  AddFriendsActivity : BaseActivity(), FriendsAdapter.Listener {
     private lateinit var mViewModel: AddFriendsViewModel
     private lateinit var mAdapter: FriendsAdapter
     private lateinit var mUsers: List<User>
@@ -23,10 +24,7 @@ class  AddFriendsActivity : AppCompatActivity(), FriendsAdapter.Listener {
         back_image.setOnClickListener { finish() }
 
         mAdapter = FriendsAdapter(this)
-        mViewModel = ViewModelProvider(this,
-            ViewModelFactory()
-        )
-            .get(AddFriendsViewModel::class.java)
+        mViewModel = initViewModel()
 
         add_friends_recycler.adapter = mAdapter
         add_friends_recycler.layoutManager = LinearLayoutManager(this)
@@ -56,7 +54,6 @@ class  AddFriendsActivity : AppCompatActivity(), FriendsAdapter.Listener {
     private fun setFollow(uid: String, follow: Boolean, onSuccessListener: () -> Unit){
         mViewModel.setFollow(mUser.uid, uid, follow)
             .addOnSuccessListener { onSuccessListener() }
-            .addOnFailureListener {showToast(it.message)}
     }
 }
 
