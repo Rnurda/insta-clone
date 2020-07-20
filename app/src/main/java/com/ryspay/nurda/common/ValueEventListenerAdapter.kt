@@ -1,4 +1,4 @@
-package com.ryspay.nurda.utils
+package com.ryspay.nurda.common
 
 import android.util.Log
 import com.google.firebase.database.DataSnapshot

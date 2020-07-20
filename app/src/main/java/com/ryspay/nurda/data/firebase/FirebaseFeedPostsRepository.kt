@@ -1,9 +1,12 @@
-package com.ryspay.nurda.screens.data.firebase
+package com.ryspay.nurda.data.firebase
 
 import com.google.android.gms.tasks.Task
-import com.ryspay.nurda.screens.data.FeedPostsRepository
-import com.ryspay.nurda.screens.task
-import com.ryspay.nurda.utils.*
+import com.ryspay.nurda.common.TaskSourceOnCompleteListener
+import com.ryspay.nurda.common.ValueEventListenerAdapter
+import com.ryspay.nurda.data.FeedPostsRepository
+import com.ryspay.nurda.common.task
+import com.ryspay.nurda.common.toUnit
+import com.ryspay.nurda.data.firebase.common.database
 
 class FirebaseFeedPostsRepository :
     FeedPostsRepository {

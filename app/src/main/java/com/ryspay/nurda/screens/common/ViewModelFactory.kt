@@ -1,12 +1,12 @@
-package com.ryspay.nurda.screens
+package com.ryspay.nurda.screens.common
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.tasks.OnFailureListener
 import com.ryspay.nurda.screens.addfriends.AddFriendsViewModel
-import com.ryspay.nurda.screens.data.firebase.FirebaseFeedPostsRepository
+import com.ryspay.nurda.data.firebase.FirebaseFeedPostsRepository
 import com.ryspay.nurda.screens.editprofile.EditProfielViewModel
-import com.ryspay.nurda.screens.data.firebase.FirebaseUsersRepository
+import com.ryspay.nurda.data.firebase.FirebaseUsersRepository
 
 @Suppress("UNCHECKED_CAST")
 class ViewModelFactory(private val onFailureListener: OnFailureListener): ViewModelProvider.Factory {

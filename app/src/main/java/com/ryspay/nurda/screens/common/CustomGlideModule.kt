@@ -1,4 +1,4 @@
-package com.ryspay.nurda.utils
+package com.ryspay.nurda.screens.common
 
 import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.module.AppGlideModule

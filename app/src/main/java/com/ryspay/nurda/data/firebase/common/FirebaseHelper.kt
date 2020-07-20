@@ -1,4 +1,4 @@
-package com.ryspay.nurda.utils
+package com.ryspay.nurda.data.firebase.common
 
 import android.app.Activity
 import com.google.firebase.auth.FirebaseAuth

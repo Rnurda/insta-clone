@@ -1,4 +1,4 @@
-package com.ryspay.nurda.utils
+package com.ryspay.nurda.common
 
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task

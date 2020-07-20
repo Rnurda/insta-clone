@@ -4,16 +4,15 @@ import android.app.Activity
 import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
 import com.ryspay.nurda.R
 import com.ryspay.nurda.screens.*
+import com.ryspay.nurda.screens.common.BaseActivity
 import kotlinx.android.synthetic.main.bottom_navigation_view.*
 
-class InstagramBottomNavigation(private val bnv: BottomNavigationViewEx,
-                                private val navNumber: Int, activity: Activity): LifecycleObserver{
+class InstagramBottomNavigation(private val bnv: BottomNavigationViewEx, private val navNumber: Int, activity: Activity): LifecycleObserver{
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResume() {
         bnv.menu.getItem(navNumber).isChecked = true

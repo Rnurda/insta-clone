@@ -1,4 +1,4 @@
-package com.ryspay.nurda.screens.data
+package com.ryspay.nurda.data
 
 import com.google.android.gms.tasks.Task
 

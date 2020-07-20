@@ -7,11 +7,13 @@ import android.util.Log
 import com.ryspay.nurda.R
 import com.ryspay.nurda.models.FeedPost
 import com.ryspay.nurda.models.User
-import com.ryspay.nurda.utils.CameraHelper
-import com.ryspay.nurda.utils.FirebaseHelper
-import com.ryspay.nurda.utils.GlideApp
-import com.ryspay.nurda.utils.ValueEventListenerAdapter
-import com.ryspay.nurda.views.setUpBottomNavigation
+import com.ryspay.nurda.screens.common.BaseActivity
+import com.ryspay.nurda.data.firebase.common.asUser
+import com.ryspay.nurda.screens.common.showToast
+import com.ryspay.nurda.screens.common.CameraHelper
+import com.ryspay.nurda.data.firebase.common.FirebaseHelper
+import com.ryspay.nurda.common.ValueEventListenerAdapter
+import com.ryspay.nurda.screens.common.GlideApp
 import kotlinx.android.synthetic.main.activity_share.*
 
 class ShareActivity : BaseActivity() {
@@ -29,7 +31,7 @@ class ShareActivity : BaseActivity() {
         mCamera = CameraHelper(this)
         mCamera.takeCameraPicture()
 
-        mFirebase.currentUserReference().addValueEventListener(ValueEventListenerAdapter{
+        mFirebase.currentUserReference().addValueEventListener(ValueEventListenerAdapter {
             mUser = it.asUser()!!
         })
 

@@ -14,8 +14,12 @@ import com.ryspay.nurda.R
 import com.ryspay.nurda.screens.addfriends.AddFriendsActivity
 import com.ryspay.nurda.screens.editprofile.EditProfileActivity
 import com.ryspay.nurda.models.User
-import com.ryspay.nurda.utils.FirebaseHelper
-import com.ryspay.nurda.utils.ValueEventListenerAdapter
+import com.ryspay.nurda.screens.common.BaseActivity
+import com.ryspay.nurda.data.firebase.common.asUser
+import com.ryspay.nurda.screens.common.loadImage
+import com.ryspay.nurda.screens.common.loadUserPhoto
+import com.ryspay.nurda.data.firebase.common.FirebaseHelper
+import com.ryspay.nurda.common.ValueEventListenerAdapter
 import com.ryspay.nurda.views.setUpBottomNavigation
 import kotlinx.android.synthetic.main.activity_profile.*
 
@@ -49,8 +53,9 @@ class ProfileActivity : BaseActivity() {
             overridePendingTransition(0,0)
         }
 
-        mFirebaseHelper = FirebaseHelper(this)
-        mFirebaseHelper.currentUserReference().addValueEventListener(ValueEventListenerAdapter{
+        mFirebaseHelper =
+            FirebaseHelper(this)
+        mFirebaseHelper.currentUserReference().addValueEventListener(ValueEventListenerAdapter {
             mUser = it.asUser()!!
             profile_image.loadUserPhoto(mUser.photo)
             username_text.text = mUser.username
@@ -59,11 +64,11 @@ class ProfileActivity : BaseActivity() {
         //RecyclerView, LayoutManager, Adapter(ViewHolder) for performance optimizations
         images_recycler.layoutManager = GridLayoutManager(this,3)
         mFirebaseHelper.database.child("images").child(mFirebaseHelper.currentUid()!!)
-            .addValueEventListener(ValueEventListenerAdapter{
+            .addValueEventListener(ValueEventListenerAdapter {
                 val images = it.children.map { it.getValue(String::class.java)!! }
                 images_recycler.adapter = ImagesAdapter(images)
 
-        })
+            })
     }
 }
 

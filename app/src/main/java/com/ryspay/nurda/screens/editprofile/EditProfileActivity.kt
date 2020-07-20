@@ -3,17 +3,18 @@ package com.ryspay.nurda.screens.editprofile
 import PasswordDialog
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.EmailAuthProvider
 import com.ryspay.nurda.R
 import com.ryspay.nurda.models.User
-import com.ryspay.nurda.screens.*
-import com.ryspay.nurda.utils.CameraHelper
+import com.ryspay.nurda.screens.common.BaseActivity
+import com.ryspay.nurda.screens.common.loadUserPhoto
+import com.ryspay.nurda.screens.common.showToast
+import com.ryspay.nurda.screens.common.toStringOrNull
+import com.ryspay.nurda.screens.common.CameraHelper
 import kotlinx.android.synthetic.main.activity_edit_profile.*
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")

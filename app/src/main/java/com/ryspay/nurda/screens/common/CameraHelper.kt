@@ -1,4 +1,4 @@
-package com.ryspay.nurda.utils
+package com.ryspay.nurda.screens.common
 
 import android.app.Activity
 import android.content.Intent

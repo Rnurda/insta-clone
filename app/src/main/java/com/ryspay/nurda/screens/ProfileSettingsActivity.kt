@@ -3,7 +3,7 @@ package com.ryspay.nurda.screens
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.ryspay.nurda.R
-import com.ryspay.nurda.utils.FirebaseHelper
+import com.ryspay.nurda.data.firebase.common.FirebaseHelper
 import kotlinx.android.synthetic.main.activity_profile_settings.*
 
 class ProfileSettingsActivity : AppCompatActivity(){

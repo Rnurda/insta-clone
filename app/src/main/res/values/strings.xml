@@ -43,7 +43,8 @@
     <string name="something_wrong_happened">Something wrong happened, Please try again later)</string>
     <string name="username_is_clicked">Username is clicked</string>
     <plurals name="likes_count">
-        <item quantity="one">like</item>
-        <item quantity="other">likes</item>
+
+        <item quantity="one">%d like</item>
+        <item quantity="other">%dlikes</item>
     </plurals>
 </resources>

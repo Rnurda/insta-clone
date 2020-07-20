@@ -16,6 +16,8 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.ryspay.nurda.R
 import com.ryspay.nurda.models.User
+import com.ryspay.nurda.screens.common.coordinateBtnAndInputs
+import com.ryspay.nurda.screens.common.showToast
 import kotlinx.android.synthetic.main.fragment_register_email.*
 import kotlinx.android.synthetic.main.fragment_register_email.email_input
 import kotlinx.android.synthetic.main.fragment_register_namepass.*
@@ -91,7 +93,7 @@ class RegisterActivity : AppCompatActivity(), EmailFragment.Listener, NamePassFr
     }
 
     private fun mkUser(fullName: String,email: String): User{
-        var username = makeUsername(fullName)
+        val username = makeUsername(fullName)
         return User(name = fullName, username = username, email = email)
     }
     private fun makeUsername(fullName: String) =
@@ -121,11 +123,9 @@ class RegisterActivity : AppCompatActivity(), EmailFragment.Listener, NamePassFr
     private fun FirebaseAuth.createUserWithEmailAndPassword(email: String, password: String, onSuccessListener: (AuthResult) -> Unit) {
         createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener {
-                if (it.isSuccessful) {
-                    onSuccessListener(it.result!!)
-                } else {
-                    unknownRegisterError(it)
-                }
+                if (it.isSuccessful) onSuccessListener(it.result!!)
+                else unknownRegisterError(it)
+
 
             }
     }
@@ -147,7 +147,10 @@ class RegisterActivity : AppCompatActivity(), EmailFragment.Listener, NamePassFr
         }
 
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-            coordinateBtnAndInputs(next_btn,email_input)
+            coordinateBtnAndInputs(
+                next_btn,
+                email_input
+            )
             next_btn.setOnClickListener{
                 val email = email_input.text.toString()
                 mListener.onNext(email)
@@ -176,7 +179,11 @@ class RegisterActivity : AppCompatActivity(), EmailFragment.Listener, NamePassFr
             return inflater.inflate(R.layout.fragment_register_namepass, container, false)
         }
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-            coordinateBtnAndInputs(register_btn,full_name_input,password_input)
+            coordinateBtnAndInputs(
+                register_btn,
+                full_name_input,
+                password_input
+            )
             register_btn.setOnClickListener {
                 val name = full_name_input.text.toString()
                 val password = password_input.text.toString()

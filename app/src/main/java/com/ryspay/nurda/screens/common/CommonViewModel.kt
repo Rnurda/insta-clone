@@ -1,4 +1,4 @@
-package com.ryspay.nurda.screens
+package com.ryspay.nurda.screens.common
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

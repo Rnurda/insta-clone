@@ -3,6 +3,7 @@ package com.ryspay.nurda.screens
 import android.os.Bundle
 import android.util.Log
 import com.ryspay.nurda.R
+import com.ryspay.nurda.screens.common.BaseActivity
 import com.ryspay.nurda.views.setUpBottomNavigation
 
 class LikesActivity : BaseActivity() {

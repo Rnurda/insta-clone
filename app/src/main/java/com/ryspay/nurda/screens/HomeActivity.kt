@@ -22,9 +22,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.ValueEventListener
 import com.ryspay.nurda.R
 import com.ryspay.nurda.models.FeedPost
-import com.ryspay.nurda.utils.FirebaseHelper
-import com.ryspay.nurda.utils.GlideApp
-import com.ryspay.nurda.utils.ValueEventListenerAdapter
+import com.ryspay.nurda.screens.common.*
+import com.ryspay.nurda.data.firebase.common.asFeedPost
+import com.ryspay.nurda.data.firebase.common.setValueTrueOrRemove
+import com.ryspay.nurda.data.firebase.common.FirebaseHelper
+
+import com.ryspay.nurda.common.ValueEventListenerAdapter
 import com.ryspay.nurda.views.setUpBottomNavigation
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.feed_item.view.*
@@ -38,7 +41,6 @@ class HomeActivity : BaseActivity(), FeedAdapter.Listener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-
         setUpBottomNavigation(0)
 
         Log.d(TAG, "onCreate: ")
@@ -48,7 +50,7 @@ class HomeActivity : BaseActivity(), FeedAdapter.Listener {
                 startActivity(Intent(this, LoginActivity::class.java))
                 finish()
             } else {
-
+                showToast("Hello!")
             }
         }
     }
@@ -62,8 +64,8 @@ class HomeActivity : BaseActivity(), FeedAdapter.Listener {
         } else {
             mFirebase.database.child("feed-posts").child(currentUser.uid)
                 .addValueEventListener(ValueEventListenerAdapter {
-                    val posts = it.children.map { it.asFeedPost()!! }
-                        .sortedByDescending { it.timeStampsDate() }
+                    val posts = it.children.map { it.asFeedPost()!!  }
+                        .sortedByDescending {it.timeStampsDate() }
 
                     mAdapter = FeedAdapter(this, posts)
                     feed_recycler.adapter = mAdapter
@@ -74,7 +76,7 @@ class HomeActivity : BaseActivity(), FeedAdapter.Listener {
 
     override fun toggleLike(postId: String) {
         Log.d(TAG, "toggleLike: ${postId}")
-        val reference = mFirebase.database.child("likes").child(postId).child(mFirebase.currentUid()!!)
+        val reference = mFirebase.database.child("likes").child(postId).child(mFirebase.currentUid()?.let { mFirebase.currentUid() }!!)
         reference.addListenerForSingleValueEvent(ValueEventListenerAdapter {
             reference.setValueTrueOrRemove(!it.exists())
         })
@@ -82,15 +84,16 @@ class HomeActivity : BaseActivity(), FeedAdapter.Listener {
 
     override fun loadLikes(postId: String, position: Int) {
         fun createListener() =
-            mFirebase.database.child("likes").child(postId).addValueEventListener(ValueEventListenerAdapter{
+            mFirebase.database.child("likes").child(postId).addValueEventListener(ValueEventListenerAdapter {
                 val userLikes = it.children.map { it.key }.toSet() //set to optimize searching
-                val postsLikes = FeedPostsLikes(userLikes.size, userLikes.contains(mFirebase.currentUid()))
+                val postsLikes =
+                    FeedPostsLikes(userLikes.size, userLikes.contains(mFirebase.currentUid()))
                 mAdapter.upadatePostLikes(position, postsLikes)
             })
         val createNewListener = mLikesListener[postId] == null
         Log.d(TAG, "loadLike: $position ------------  $createNewListener")
         if(createNewListener){
-            mLikesListener += (postId to createListener())
+            mLikesListener = mLikesListener + (postId to createListener())
         }
     }
 
@@ -122,7 +125,7 @@ class FeedAdapter(private val listener: Listener, private val posts: List<FeedPo
     }
 
     fun upadatePostLikes(position: Int, likes: FeedPostsLikes) {
-        postsLikes += (position to likes)
+        postsLikes = postsLikes + (position to likes)
         notifyItemChanged(position)
     }
 
@@ -138,8 +141,8 @@ class FeedAdapter(private val listener: Listener, private val posts: List<FeedPo
                 likes_text.visibility = View.GONE
             }else{
                 likes_text.visibility = View.VISIBLE
-                val likes_with_quantity_string = holder.view.context.resources.getQuantityString(R.plurals.likes_count, likes.likesCount)
-                likes_text.text = "${likes.likesCount} $likes_with_quantity_string"
+                val likesCountString = holder.view.context.resources.getQuantityString(R.plurals.likes_count, likes.likesCount, likes.likesCount)
+                likes_text.text = likesCountString
             }
             caption_text.setCaptionText(post.username, post.caption)
             like_image.setOnClickListener { listener.toggleLike(post.id)}

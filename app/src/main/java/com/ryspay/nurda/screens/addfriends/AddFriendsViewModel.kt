@@ -5,9 +5,9 @@ import androidx.lifecycle.ViewModel
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
-import com.ryspay.nurda.screens.data.FeedPostsRepository
-import com.ryspay.nurda.screens.data.UsersRepository
-import com.ryspay.nurda.screens.map
+import com.ryspay.nurda.data.FeedPostsRepository
+import com.ryspay.nurda.data.UsersRepository
+import com.ryspay.nurda.data.common.map
 import com.ryspay.nurda.models.User
 
 class AddFriendsViewModel (private val onFailureListener: OnFailureListener, private val usersRepository: UsersRepository, private val feedPostsRepository: FeedPostsRepository): ViewModel(){

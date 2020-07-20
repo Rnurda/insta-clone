@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.Task
-import com.ryspay.nurda.screens.data.UsersRepository
+import com.ryspay.nurda.data.UsersRepository
 import com.ryspay.nurda.models.User
 
 class EditProfielViewModel(private val onFailureListener: OnFailureListener, private val usersRepository: UsersRepository) : ViewModel() {

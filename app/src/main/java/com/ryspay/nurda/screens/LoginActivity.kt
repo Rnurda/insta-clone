@@ -7,6 +7,8 @@ import android.util.Log
 import android.view.View
 import com.google.firebase.auth.FirebaseAuth
 import com.ryspay.nurda.R
+import com.ryspay.nurda.screens.common.coordinateBtnAndInputs
+import com.ryspay.nurda.screens.common.showToast
 import kotlinx.android.synthetic.main.activity_login.*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
@@ -21,8 +23,13 @@ class LoginActivity : AppCompatActivity(), KeyboardVisibilityEventListener,
         setContentView(R.layout.activity_login)
         Log.d(TAG, "onCreate: ")
 
+
         KeyboardVisibilityEvent.setEventListener(this,this)
-        coordinateBtnAndInputs(login_btn,email_input,password_input)
+        coordinateBtnAndInputs(
+            login_btn,
+            email_input,
+            password_input
+        )
         login_btn.setOnClickListener(this)
         create_account_text.setOnClickListener(this)
 

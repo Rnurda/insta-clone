@@ -1,17 +1,16 @@
-package com.ryspay.nurda.screens.data.firebase
+package com.ryspay.nurda.data.firebase
 
 import android.net.Uri
 import androidx.lifecycle.LiveData
-import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
-import com.ryspay.nurda.screens.asUser
-import com.ryspay.nurda.screens.data.UsersRepository
-import com.ryspay.nurda.screens.map
+import com.ryspay.nurda.common.toUnit
+import com.ryspay.nurda.data.UsersRepository
+import com.ryspay.nurda.data.common.map
+import com.ryspay.nurda.data.firebase.common.*
 import com.ryspay.nurda.models.User
-import com.ryspay.nurda.utils.*
 
 class FirebaseUsersRepository: UsersRepository {
         override fun getUser(): LiveData<User> =

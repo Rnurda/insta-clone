@@ -1,4 +1,4 @@
-package com.ryspay.nurda.screens
+package com.ryspay.nurda.screens.common
 
 import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import kotlinx.android.synthetic.main.bottom_navigation_view.*
 
 abstract class BaseActivity: AppCompatActivity(){
     protected lateinit var commonViewModel: CommonViewModel
@@ -23,7 +22,9 @@ abstract class BaseActivity: AppCompatActivity(){
     }
 
     protected inline fun <reified T : ViewModel> initViewModel() : T =
-        ViewModelProvider(this, ViewModelFactory(commonViewModel)).get(T::class.java)
+        ViewModelProvider(this,
+            ViewModelFactory(commonViewModel)
+        ).get(T::class.java)
 
     companion object{
         const val TAG = "BaseActivity"
